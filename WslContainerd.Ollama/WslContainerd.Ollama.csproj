@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>WslContainerd.Ollama</RootNamespace>
+    <AssemblyName>WslContainerd.Ollama</AssemblyName>
+    <PackageId>WslContainerd.Ollama</PackageId>
+    <Description>Ollama service management on Windows via WSL2 + containerd.</Description>
+    <Version>0.1.0</Version>
+    <WslContainerdNetMonorepoPath>$(MSBuildThisFileDirectory)..\..\WslContainerd.Net\</WslContainerdNetMonorepoPath>
+    <UseWslContainerdNetProjectRefs>false</UseWslContainerdNetProjectRefs>
+    <UseWslContainerdNetProjectRefs Condition="Exists('$(WslContainerdNetMonorepoPath)WslContainerd.Logging.Abstractions\WslContainerd.Logging.Abstractions.csproj')">true</UseWslContainerdNetProjectRefs>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(UseWslContainerdNetProjectRefs)' == 'true'">
+    <ProjectReference Include="$(WslContainerdNetMonorepoPath)WslContainerd.Logging.Abstractions\WslContainerd.Logging.Abstractions.csproj" />
+    <ProjectReference Include="$(WslContainerdNetMonorepoPath)WslContainerd.Services.Abstractions\WslContainerd.Services.Abstractions.csproj" />
+    <ProjectReference Include="$(WslContainerdNetMonorepoPath)WslContainerd.Net.Abstractions\WslContainerd.Net.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(UseWslContainerdNetProjectRefs)' != 'true'">
+    <PackageReference Include="WslContainerd.Logging.Abstractions" Version="0.1.0" />
+    <PackageReference Include="WslContainerd.Services.Abstractions" Version="0.1.0" />
+    <PackageReference Include="WslContainerd.Net.Abstractions" Version="0.1.0" />
+  </ItemGroup>
+
+</Project>
+
